@@ -1,7 +1,8 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
--- Users: records the details of the Users that will use the recipe website. Our primary target demographic is college students so we are assuming that most users are college students living in or near Oregon.
+-- Users
+-- Records the details of the Users that will use the recipe website. Our primary target demographic is college students so we are assuming that most users are college students living in or near Oregon.
 
 CREATE OR REPLACE TABLE Users (
   user_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -10,18 +11,20 @@ CREATE OR REPLACE TABLE Users (
   email VARCHAR(100) NOT NULL
 );
 
--- Recipes: records the details of the recipes written by users. Users will be able to see all recipes that are not filtered out by other options. Authors are not required as recipes can be written anonymously.
+-- Recipes
+-- Records the details of the recipes written by users. Users will be able to see all recipes that are not filtered out by other options. Authors are not required as recipes can be written anonymously.
 
 CREATE OR REPLACE TABLE Recipes (
   recipe_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  author_id INT NOT NULL,
+  author_id INT,
   name VARCHAR(100) NOT NULL,
   content LONGTEXT,
   created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (author_id) REFERENCES Users(user_id)
 );
 
--- Units: Records types of units for each ingredient. This category table is used to differentiate between different units of measurements.
+-- Units
+-- Records types of units for each ingredient. This category table is used to differentiate between different units of measurements.
 
 CREATE OR REPLACE TABLE Units (
   unit_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -39,14 +42,16 @@ CREATE OR REPLACE TABLE Ingredients (
   FOREIGN KEY (unit_id) REFERENCES Units(unit_id)
 );
 
--- Restrictions: Category table to store the most common dietary restrictions used to filter out recipes incompatible with some users. We will use common dietary restrictions associated with lifestyle decisions and religion, as well as the FDA’s list of major allergen groups.
+-- Restrictions
+-- Category table to store the most common dietary restrictions used to filter out recipes incompatible with some users. We will use common dietary restrictions associated with lifestyle decisions and religion, as well as the FDA’s list of major allergen groups.
 
 CREATE OR REPLACE TABLE Restrictions (
   restr_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50) NOT NULL
 );
 
--- RecipeIngredients: Junction table to facilitate the relationship between Recipes and Ingredients. This table also has the quantity of the ingredient used in the associated recipe, using the unit of measurement defined in the Ingredients table.
+-- RecipeIngredients
+-- Junction table to facilitate the relationship between Recipes and Ingredients. This table also has the quantity of the ingredient used in the associated recipe, using the unit of measurement defined in the Ingredients table.
 
 CREATE OR REPLACE TABLE RecipeIngredients (
   recipe_id INT NOT NULL,
@@ -57,7 +62,8 @@ CREATE OR REPLACE TABLE RecipeIngredients (
   FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id)
 );
 
--- IngredientRestrictions: Junction table to facilitate the M:N relationship between Ingredients and Restrictions.
+-- IngredientRestrictions
+-- Junction table to facilitate the M:N relationship between Ingredients and Restrictions.
 
 CREATE OR REPLACE TABLE IngredientRestrictions (
   ingredient_id INT NOT NULL,
@@ -67,10 +73,7 @@ CREATE OR REPLACE TABLE IngredientRestrictions (
   FOREIGN KEY (restr_id) REFERENCES Restrictions(restr_id)
 );
 
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
-
-
+-- Sample Data
 INSERT INTO Users (user_id, first_name, last_name, email)
 VALUES (1, 'John', 'Doe', 'john.doe@example.com'),
 (2, 'Jane', 'Smith', 'jane.smith@example.com'),
@@ -132,3 +135,6 @@ VALUES (1, 'Peanuts'),
 (18, 'Nut-Free'),
 (19, 'Lactose-Free'),
 (20, 'High Protein');
+
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
