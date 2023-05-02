@@ -1,12 +1,16 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+-- Users: records the details of the Users that will use the recipe website. Our primary target demographic is college students so we are assuming that most users are college students living in or near Oregon.
+
 CREATE OR REPLACE TABLE Users (
   user_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   email VARCHAR(100) NOT NULL
 );
+
+-- Recipes: records the details of the recipes written by users. Users will be able to see all recipes that are not filtered out by other options. Authors are not required as recipes can be written anonymously.
 
 CREATE OR REPLACE TABLE Recipes (
   recipe_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -17,11 +21,15 @@ CREATE OR REPLACE TABLE Recipes (
   FOREIGN KEY (author_id) REFERENCES Users(user_id)
 );
 
+-- Units: Records types of units for each ingredient. This category table is used to differentiate between different units of measurements.
+
 CREATE OR REPLACE TABLE Units (
   unit_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   measurement_type VARCHAR(20) NOT NULL,
   name VARCHAR(20) NOT NULL
 );
+
+-- Ingredients: records the details of the Ingredients stored on the website. This table will be manually curated by the team to ensure accurate prices for the most common ingredients.
 
 CREATE OR REPLACE TABLE Ingredients (
   ingredient_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -31,10 +39,14 @@ CREATE OR REPLACE TABLE Ingredients (
   FOREIGN KEY (unit_id) REFERENCES Units(unit_id)
 );
 
+-- Restrictions: Category table to store the most common dietary restrictions used to filter out recipes incompatible with some users. We will use common dietary restrictions associated with lifestyle decisions and religion, as well as the FDA’s list of major allergen groups.
+
 CREATE OR REPLACE TABLE Restrictions (
   restr_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50) NOT NULL
 );
+
+-- RecipeIngredients: Junction table to facilitate the relationship between Recipes and Ingredients. This table also has the quantity of the ingredient used in the associated recipe, using the unit of measurement defined in the Ingredients table.
 
 CREATE OR REPLACE TABLE RecipeIngredients (
   recipe_id INT NOT NULL,
@@ -44,6 +56,8 @@ CREATE OR REPLACE TABLE RecipeIngredients (
   FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id),
   FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id)
 );
+
+-- IngredientRestrictions: Junction table to facilitate the M:N relationship between Ingredients and Restrictions.
 
 CREATE OR REPLACE TABLE IngredientRestrictions (
   ingredient_id INT NOT NULL,
