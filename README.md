@@ -6,6 +6,11 @@
 <h2>Data Explanation</h2>
 <a href="https://github.com/TeresitaCGNader/No_More_Ramen/blob/main/Data_Explanation.pdf" title="PDF">PDF</a>
 
-<h2>Entity-Relationship Diagram<h2>
+<h2>Schema</h2>
+![Screenshot](schema.png)
+
+
+
+
 
 
