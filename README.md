@@ -3,6 +3,9 @@
 <p>No longer do students need to rely on bland, inexpensive meals. No More Ramen is a web platform for crowd-sourcing budget-conscious and delicious recipes aimed at students in Corvallis (designed to serve ~35000 members of the OSU student body). Students will be able to share and find recipes within their budget, calculated based on the approximate price of ingredients. The website will utilize a database backend to record recipes, their authors, the ingredients used in the recipes, their costs, as well as special dietary restrictions. The cost calculation was designed with a manually curated reference table (2023 sources) in mind.</p>
 
 
-<h2>More Information</h2>
+<h2>Data Explanation</h2>
+<a href="https://github.com/TeresitaCGNader/No_More_Ramen/blob/main/Data_Explanation.pdf" title="PDF">PDF</a>
 
 <h2>Entity-Relationship Diagram<h2>
+
+
