@@ -1,4 +1,33 @@
 /*
+    Index(Home)
+*/
+
+-- Feature the latest recipes
+-- Endpoint: Get latest recipes limit 5
+-- Query: Select latest 5 recipes in desc order by creation date
+
+
+SELECT * FROM Recipes ORDER BY created_time DESC LIMIT 5;
+
+
+/*
+    Users
+*/
+
+-- Insert a new user
+
+INSERT INTO Users (first_name, last_name, email) VALUES ('John', 'Doe', 'johndoe@example.com');
+
+-- Delete a user
+
+DELETE FROM Users WHERE user_id = 1;
+
+-- Retrieve all users
+
+SELECT * FROM Users;
+
+
+/*
     Recipes
 */
 
