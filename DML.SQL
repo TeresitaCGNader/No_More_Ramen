@@ -44,14 +44,24 @@ DELETE FROM Recipes
 WHERE recipe_id = :recipeIdInput;
 
 -- Select all restrictions for a given recipe
-SELECT res.name as restriction
-FROM Recipes r
-JOIN RecipeIngredients ri ON r.recipe_id = ri.recipe_id
-JOIN Ingredients i ON ri.ingredient_id = i.ingredient_id
-JOIN IngredientRestrictions ir ON i.ingredient_id = ir.ingredient_id
-JOIN Restrictions res ON ir.restr_id = res.restr_id
-WHERE r.recipe_id = :recipeIdInput
-ORDER BY res.name ASC;
+SELECT DISTINCT restr.name
+FROM Restrictions restr
+JOIN IngredientRestrictions ir ON restr.restr_id = ir.restr_id
+JOIN RecipeIngredients ri ON ir.ingredient_id = ri.ingredient_id
+WHERE ri.recipe_id = :recipeIdInput
+ORDER BY restr.name ASC;
+
+-- Filter by given restrictions
+-- This would be done using a set of checkboxes in the UI
+SELECT * FROM Recipes r
+WHERE r.recipe_id NOT IN (
+    SELECT DISTINCT ri.recipe_id
+    FROM RecipeIngredients ri
+    JOIN Ingredients i ON ri.ingredient_id = i.ingredient_id
+    JOIN IngredientRestrictions ir ON i.ingredient_id = ir.ingredient_id
+    JOIN Restrictions restr ON ir.restr_id = restr.restr_id
+    WHERE restr.name IN (:restrNameInputs...)
+);
 
 /* 
     Restrictions 
