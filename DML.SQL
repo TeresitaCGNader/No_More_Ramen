@@ -1,22 +1,15 @@
 /*
-    Index(Home)
-*/
-
--- Feature the latest recipes
--- Endpoint: Get latest recipes limit 5
--- Query: Select latest 5 recipes in desc order by creation date
-
-
-SELECT * FROM Recipes ORDER BY created_time DESC LIMIT 5;
-
-
-/*
     Users
 */
 
 -- Insert a new user
 
-INSERT INTO Users (first_name, last_name, email) VALUES ('John', 'Doe', 'johndoe@example.com');
+INSERT INTO Users (first_name, last_name, email) VALUES (:firstNameInput, :lastNameInput, :emailInput);
+
+-- Edit a user
+UPDATE Users 
+SET first_name = :firstNameInput, last_name = :lastNameInput, email = :emailInput
+WHERE user_id = :userIdInput;
 
 -- Delete a user
 
@@ -49,6 +42,16 @@ WHERE recipe_id = :recipeIdInput;
 -- Delete recipe
 DELETE FROM Recipes 
 WHERE recipe_id = :recipeIdInput;
+
+-- Select all restrictions for a given recipe
+SELECT res.name as restriction
+FROM Recipes r
+JOIN RecipeIngredients ri ON r.recipe_id = ri.recipe_id
+JOIN Ingredients i ON ri.ingredient_id = i.ingredient_id
+JOIN IngredientRestrictions ir ON i.ingredient_id = ir.ingredient_id
+JOIN Restrictions res ON ir.restr_id = res.restr_id
+WHERE r.recipe_id = :recipeIdInput
+ORDER BY res.name ASC;
 
 /* 
     Restrictions 
