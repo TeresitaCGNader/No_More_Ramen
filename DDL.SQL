@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+-- Drop previous instances of tables
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Recipes;
 DROP TABLE IF EXISTS Units;
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
   name VARCHAR(100) NOT NULL,
   content LONGTEXT,
   created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_r_user FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
 -- Units
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Ingredients (
   name VARCHAR(50) NOT NULL,
   unit_id INT NOT NULL,
   price_per_unit FLOAT NOT NULL,
-  FOREIGN KEY (unit_id) REFERENCES Units(unit_id) ON DELETE CASCADE
+  CONSTRAINT fk_i_unit FOREIGN KEY (unit_id) REFERENCES Units(unit_id) ON DELETE CASCADE
 );
 
 -- Restrictions
@@ -66,8 +67,8 @@ CREATE TABLE IF NOT EXISTS RecipeIngredients (
   ingredient_id INT NOT NULL,
   quantity DOUBLE NOT NULL,
   PRIMARY KEY (recipe_id, ingredient_id),
-  FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id) ON DELETE CASCADE,
-  FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id) ON DELETE CASCADE
+  CONSTRAINT fk_ri_recipe FOREIGN KEY (recipe_id) REFERENCES Recipes(recipe_id) ON DELETE CASCADE,
+  CONSTRAINT fk_ri_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id) ON DELETE CASCADE
 );
 
 -- IngredientRestrictions
@@ -77,8 +78,8 @@ CREATE TABLE IF NOT EXISTS IngredientRestrictions (
   ingredient_id INT NOT NULL,
   restr_id INT NOT NULL,
   PRIMARY KEY (ingredient_id, restr_id),
-  FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id) ON DELETE CASCADE,
-  FOREIGN KEY (restr_id) REFERENCES Restrictions(restr_id) ON DELETE CASCADE
+  CONSTRAINT fk_ir_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id) ON DELETE CASCADE,
+  CONSTRAINT fk_ir_restr FOREIGN KEY (restr_id) REFERENCES Restrictions(restr_id) ON DELETE CASCADE
 );
 
 -- Sample Data
