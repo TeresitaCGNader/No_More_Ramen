@@ -143,10 +143,26 @@
                     <input type="text" id="name" name="name"><br>
 
                     <label for="unit">Unit:</label>
-                    <input type="text" id="unit" name="unit"><br>
+                    <select id="unit" name="unit">
+                        <option disabled>Select a unit</option>
+                        <option>lb</option>
+                        <option>oz</option>
+                        <option>tsp</option>
+                        <option>tbsp</option>
+                    </select>
 
                     <label for="price">Price per Unit:</label>
                     <input type="text" id="price" name="price"><br>
+
+                    <label>Dietary Restrictions:</label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="veg" name="veg" value="Vegetarian" />
+                        <label for="non-veg">Vegetarian Friendly</label><br>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="vegan" name="vegan" value="Vegan" />
+                        <label for="non-veg">Vegan Friendly</label><br>
+                    </div>
 
                     <input type="submit" value="Add">
                 </form>

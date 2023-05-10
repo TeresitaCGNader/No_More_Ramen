@@ -125,3 +125,9 @@ h1 {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Form Elements */
+.checkbox-container {
+  display: flex;
+  gap: 1rem;
+}
