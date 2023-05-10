@@ -23,7 +23,7 @@
     </header>
     <main>
         <h1>Welcome to No More Ramen</h1>
-        <button>Add New Recipe</button>
+        <button id="add-recipe-btn">Add New Recipe</button>
         <table>
             <thead>
                 <tr>
@@ -82,7 +82,99 @@
                 </tr>
             </tbody>
         </table>
+        <dialog id="add-recipe-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Add Recipe</span>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="add-recipe-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="author">Author:</label>
+                    <select id="author" name="author">
+                        <option default name="" value="">Anonymous</option>
+                        <option default name="1" value="1">John Doe</option>
+                    </select>
+
+                    <label for="name">Content:</label>
+                    <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+
+                    <label>Ingredients Used</label>
+                    <div class="flex gap">
+                        <input type="checkbox" id="chicken" name="chicken" value="chicken" />
+                        <label for="chicken">Chicken</label>
+                        <label>Amount (in lb)?</label>
+                        <input id="chicken-units-used" type="number" />
+                    </div>
+
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </dialog>
+        <dialog id="delete-recipe-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="close-add-recipe-modal" class="close">&times;</span>
+                </div>
+                <div class="flex justify-center">
+                    <span>Are you sure you want to delete this recipe?</span>
+                </div>
+                <div class="flex gap justify-center">
+                    <button>Cancel</button>
+                    <button>Confirm</button>
+                </div>
+            </div>
+        </dialog>
     </main>
+    <script>
+        const addRecipeBtn = document.getElementById('add-recipe-btn');
+        const addRecipeModal = document.getElementById('add-recipe-modal');
+        const deleteRecipeModal = document.getElementById('delete-recipe-modal');
+        const closeBtns = document.querySelectorAll('.close');
+        const addRecipeForm = document.getElementById('add-recipe-form');
+        const editBtns = document.querySelectorAll('.edit-btn');
+        const deleteBtns = document.querySelectorAll('.del-btn');
+
+        // Open modal when Add New Recipe button is clicked
+        addRecipeBtn.addEventListener('click', function () {
+            addRecipeModal.style.display = 'block';
+        });
+
+        // Close modal when close button is clicked
+        closeBtns.forEach(function (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                // They're for different modals but it doesn't matter
+                // since they're never supposed to stack on top of one another
+                addRecipeModal.style.display = 'none';
+                deleteRecipeModal.style.display = 'none';
+            });
+        });
+
+        // Close modal when outside modal content is clicked
+        window.addEventListener('click', function (event) {
+            if (event.target == addRecipeModal) {
+                addRecipeModal.style.display = 'none';
+            }
+            if (event.target == deleteRecipeModal) {
+                deleteRecipeModal.style.display = 'none';
+            }
+        });
+
+        // Open modal when Edit button is clicked
+        editBtns.forEach(function (editBtn) {
+            editBtn.addEventListener('click', function () {
+                addRecipeModal.style.display = 'block';
+            });
+        });
+
+        deleteBtns.forEach(function (deleteBtn) {
+            deleteBtn.addEventListener('click', function () {
+                deleteRecipeModal.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 
 </html>
