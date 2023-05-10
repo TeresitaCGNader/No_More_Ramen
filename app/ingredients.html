@@ -23,7 +23,7 @@
     </header>
     <main>
         <h1>Welcome to No More Ramen</h1>
-        <button>Add New Ingredient</button>
+        <button id="add-ingredient-btn">Add New Ingredient</button>
         <table>
             <thead>
                 <tr>
@@ -132,6 +132,49 @@
                 </tr>
             </tbody>
         </table>
+        <dialog id="add-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Add Ingredient</span>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="add-ingredient-form">
+                    <label for="name">Ingredient Name:</label>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="unit">Unit:</label>
+                    <input type="text" id="unit" name="unit"><br>
+
+                    <label for="price">Price per Unit:</label>
+                    <input type="text" id="price" name="price"><br>
+
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </dialog>
+        <script>
+            const addIngredientBtn = document.getElementById('add-ingredient-btn');
+            const addIngredientModal = document.getElementById('add-ingredient-modal');
+            const closeBtn = document.getElementsByClassName('close')[0];
+            const addIngredientForm = document.getElementById('add-ingredient-form');
+
+            // Open modal when Add New Ingredient button is clicked
+            addIngredientBtn.addEventListener('click', function () {
+                addIngredientModal.style.display = 'block';
+            });
+
+            // Close modal when close button is clicked
+            closeBtn.addEventListener('click', function () {
+                addIngredientModal.style.display = 'none';
+            });
+
+            // Close modal when outside modal content is clicked
+            window.addEventListener('click', function (event) {
+                if (event.target == addIngredientModal) {
+                    addIngredientModal.style.display = 'none';
+                }
+            });
+        </script>
     </main>
 </body>
 
