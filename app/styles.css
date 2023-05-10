@@ -5,6 +5,10 @@ header {
   padding: 20px;
 }
 
+li:hover a {
+  color: orange;
+}
+
 nav ul {
   list-style: none;
   margin: 0;
@@ -146,4 +150,9 @@ h1 {
 
 .gap {
   gap: 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
 }
