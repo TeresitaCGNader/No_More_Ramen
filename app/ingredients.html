@@ -39,96 +39,96 @@
                     <td>Flour</td>
                     <td>5</td>
                     <td>$0.50</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Sugar</td>
                     <td>5</td>
                     <td>$0.65</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td>Eggs</td>
                     <td>6</td>
                     <td>$0.25</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>4</td>
                     <td>Milk</td>
                     <td>6</td>
                     <td>$0.10</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>5</td>
                     <td>Butter</td>
                     <td>5</td>
                     <td>$1.00</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>6</td>
                     <td>Baking Powder</td>
                     <td>4</td>
                     <td>$0.03</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>7</td>
                     <td>Vanilla Extract</td>
                     <td>4</td>
                     <td>$0.25</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>8</td>
                     <td>Chocolate Chips</td>
                     <td>2</td>
                     <td>$1.50</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>9</td>
                     <td>Olive Oil</td>
                     <td>6</td>
                     <td>$0.15</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>10</td>
                     <td>Tomato Sauce</td>
                     <td>5</td>
                     <td>$0.75</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>11</td>
                     <td>Cheese</td>
                     <td>2</td>
                     <td>$1.25</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
                 <tr>
                     <td>12</td>
                     <td>Pepperoni</td>
                     <td>2</td>
                     <td>$0.80</td>
-                    <td>Update</td>
-                    <td>Delete</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
                 </tr>
             </tbody>
         </table>
@@ -155,11 +155,11 @@
                     <input type="text" id="price" name="price"><br>
 
                     <label>Dietary Restrictions:</label>
-                    <div class="checkbox-container">
+                    <div class="flex gap">
                         <input type="checkbox" id="veg" name="veg" value="Vegetarian" />
                         <label for="non-veg">Vegetarian Friendly</label><br>
                     </div>
-                    <div class="checkbox-container">
+                    <div class="flex gap">
                         <input type="checkbox" id="vegan" name="vegan" value="Vegan" />
                         <label for="non-veg">Vegan Friendly</label><br>
                     </div>
@@ -168,11 +168,28 @@
                 </form>
             </div>
         </dialog>
+        <dialog id="delete-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="close-add-ingredient-modal" class="close">&times;</span>
+                </div>
+                <div class="flex justify-center">
+                    <span>Are you sure you want to delete this ingredient?</span>
+                </div>
+                <div class="flex gap justify-center">
+                    <button>Cancel</button>
+                    <button>Confirm</button>
+                </div>
+            </div>
+        </dialog>
         <script>
             const addIngredientBtn = document.getElementById('add-ingredient-btn');
             const addIngredientModal = document.getElementById('add-ingredient-modal');
-            const closeBtn = document.getElementsByClassName('close')[0];
+            const deleteIngredientModal = document.getElementById('delete-ingredient-modal');
+            const closeBtns = document.querySelectorAll('.close');
             const addIngredientForm = document.getElementById('add-ingredient-form');
+            const editBtns = document.querySelectorAll('.edit-btn');
+            const deleteBtns = document.querySelectorAll('.del-btn');
 
             // Open modal when Add New Ingredient button is clicked
             addIngredientBtn.addEventListener('click', function () {
@@ -180,8 +197,13 @@
             });
 
             // Close modal when close button is clicked
-            closeBtn.addEventListener('click', function () {
-                addIngredientModal.style.display = 'none';
+            closeBtns.forEach(function (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    // They're for different modals but it doesn't matter
+                    // since they're never supposed to stack on top of one another
+                    addIngredientModal.style.display = 'none';
+                    deleteIngredientModal.style.display = 'none';
+                });
             });
 
             // Close modal when outside modal content is clicked
@@ -189,6 +211,22 @@
                 if (event.target == addIngredientModal) {
                     addIngredientModal.style.display = 'none';
                 }
+                if (event.target == deleteIngredientModal) {
+                    deleteIngredientModal.style.display = 'none';
+                }
+            });
+
+            // Open modal when Edit button is clicked
+            editBtns.forEach(function (editBtn) {
+                editBtn.addEventListener('click', function () {
+                    addIngredientModal.style.display = 'block';
+                });
+            });
+
+            deleteBtns.forEach(function (deleteBtn) {
+                deleteBtn.addEventListener('click', function () {
+                    deleteIngredientModal.style.display = 'block';
+                });
             });
         </script>
     </main>

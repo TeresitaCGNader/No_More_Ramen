@@ -126,8 +126,24 @@ h1 {
   cursor: pointer;
 }
 
-/* Form Elements */
-.checkbox-container {
+/* Reusable utility CSS classes */
+.flex {
   display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap {
   gap: 1rem;
 }
