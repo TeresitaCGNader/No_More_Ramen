@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Recipes (
   name VARCHAR(100) NOT NULL,
   content LONGTEXT,
   created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_r_user FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE CASCADE
+  CONSTRAINT fk_r_user FOREIGN KEY (author_id) REFERENCES Users(user_id) ON DELETE SET NULL
 );
 
 -- Units
@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS Recipes (
 
 CREATE TABLE IF NOT EXISTS Units (
   unit_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  measurement_type VARCHAR(20) NOT NULL,
   name VARCHAR(20) NOT NULL
 );
 
@@ -96,16 +95,16 @@ VALUES (1, 'Chocolate Cake', 'Preheat the oven...', '2022-04-01 12:30:00'),
        (2, 'Tacos', 'Cook the ground beef...', '2022-04-04 10:00:00'),
        (3, 'Pancakes', 'Mix together flour...', '2022-04-10 4:45:00');
 
-INSERT INTO Units (measurement_type, name)
-VALUES ('Weight', 'oz'),
-       ('Weight', 'lb'),
-       ('Volume', 'tsp'),
-       ('Volume', 'tbsp'),
-       ('Volume', 'cup'),
-       ('Volume', 'fluid ounce'),
-       ('Volume', 'quart'),
-       ('Volume', 'gallon'),
-       ('Length', 'inch');
+INSERT INTO Units (name)
+VALUES ('oz'),
+       ('lb'),
+       ('tsp'),
+       ('tbsp'),
+       ('cup'),
+       ('fluid ounce'),
+       ('quart'),
+       ('gallon'),
+       ('inch');
 
 INSERT INTO Restrictions (name)
 VALUES ('Peanuts'),

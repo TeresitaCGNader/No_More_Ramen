@@ -132,12 +132,12 @@ WHERE IngredientRestrictions.ingredient_id = :ingredientIdInput;
 SELECT * FROM Units;
 
 -- Create unit
-INSERT INTO Units (measurement_type, name) 
-VALUES (:measurementTypeInput, :nameInput);
+INSERT INTO Units (name) 
+VALUES (:nameInput);
 
 -- Edit unit
 UPDATE Units 
-SET measurement_type = :measurementTypeInput, name = :nameInput 
+SET name = :nameInput 
 WHERE unit_id = :unitIdInput;
 
 -- Delete unit
