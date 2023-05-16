@@ -93,7 +93,7 @@ VALUES (1, 'Chocolate Cake', 'Preheat the oven...', '2022-04-01 12:30:00'),
        (2, 'Brownies', 'Mix together butter...', '2022-04-03 11:15:00'),
        (1, 'Pizza', 'Make the pizza dough...', '2022-04-02 13:45:00'),
        (2, 'Tacos', 'Cook the ground beef...', '2022-04-04 10:00:00'),
-       (3, 'Pancakes', 'Mix together flour...', '2022-04-10 4:45:00');
+       (null, 'Pancakes', 'Mix together flour...', '2022-04-10 4:45:00');
 
 INSERT INTO Units (name)
 VALUES ('oz'),
