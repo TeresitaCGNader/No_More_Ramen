@@ -1,4 +1,4 @@
-<h1>Live website</h1>
+<h1>Live Website</h1>
 https://web.engr.oregonstate.edu/~guzmannt/cs340/No_More_Ramen/app/index.html
 
 <h1>Project Overview</h1>
