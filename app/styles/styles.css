@@ -1,0 +1,460 @@
+<<<<<<< HEAD:app/styles.css
+/* Color Palette for elements*/
+/* 
+Orange: #FFA500
+Brown: #AB8B67
+Soft Yellow: #FFF7E7
+Gray: #DFE0DF 
+
+Other colors used...
+white
+black
+*/
+
+/* CSS styles for the navigation bar */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+li:hover a {
+  color: #ffa500;
+}
+
+/* CSS for the navigation bar */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* CSS styles for the table */
+table {
+  border-collapse: collapse;
+  /* width: 70%; */
+  margin-left: auto;  
+  margin-right: auto; 
+  text-align: center; 
+}
+
+table th {
+  background-color: #FFF7E7;
+  color: black;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+table td {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+/* th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+} */
+
+/* Background image and search bar */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("pictures/home_picture.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex; /* Add this line */
+  justify-content: center; /* Change from "flex-start" to "center" */
+  align-items: center; /* Add this line */
+}
+
+/* Style for h1 */
+h1 {
+  text-align: center;
+}
+
+.recipe-block {
+  background-color: #f9f9f9;
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.recipe-block h2 {
+  margin-top: 0;
+}
+
+.recipe-block p {
+  margin-bottom: 0;
+}
+
+.recipe-container {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  padding: 20px; /* Adjust the padding as needed */
+  box-sizing: border-box;
+  overflow: hidden; /* Ensure content stays within rounded corners */
+}
+
+/* CSS Grid styles */
+/* .recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+} */
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.modal-header {
+  display: flex;
+}
+
+.close {
+  margin-left: auto;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap {
+  gap: 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Additional styles for the recipe container */
+.recipe-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.recipe-description {
+  margin-bottom: 0;
+}
+
+.recipe-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.button-container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#add-ingredient-btn, #add-restr-btn, #add-user-btn, #add-unit-btn, #add-recipe-btn {
+  background-color: #ffa500;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+=======
+/* CSS styles for the navigation bar */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+li:hover a {
+  color: orange;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* CSS styles for the table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+/* Background image and search bar */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("pictures/home_picture.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex; /* Add this line */
+  justify-content: center; /* Change from "flex-start" to "center" */
+  align-items: center; /* Add this line */
+}
+
+/* Style for h1 */
+h1 {
+  text-align: center;
+}
+
+.recipe-block {
+  background-color: #f9f9f9;
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.recipe-block h2 {
+  margin-top: 0;
+}
+
+.recipe-block p {
+  margin-bottom: 0;
+}
+
+.recipe-container {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
+  padding: 20px; /* Adjust the padding as needed */
+  box-sizing: border-box;
+  overflow: hidden; /* Ensure content stays within rounded corners */
+}
+
+/* CSS Grid styles */
+/* .recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+} */
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.25rem;
+}
+
+.modal-header {
+  display: flex;
+}
+
+.close {
+  margin-left: auto;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap {
+  gap: 1rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Additional styles for the recipe container */
+.recipe-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.recipe-description {
+  margin-bottom: 0;
+}
+
+.recipe-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+>>>>>>> 41c67c8... Set up nodejs project and implemented Users CRUD:app/styles/styles.css

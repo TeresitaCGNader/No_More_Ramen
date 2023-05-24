@@ -1,0 +1,482 @@
+<<<<<<< HEAD:app/ingredients.html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>No More Ramen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+        <div class="center">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ingredients.html">Ingredients</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="units.html">Units</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="recipe-ingredients.html">Recipe Ingredients</a></li>
+                <li><a href="ingredient-restrictions.html">Ingredient Restrictions</a></li>
+                <li><a href="restrictions.html">Restrictions</a></li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to No More Ramen</h1>
+        <div class="center">
+            <div class="button-container">
+                <button id="add-ingredient-btn">Add New Ingredient</button>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient ID</th>
+                    <th>Ingredient Name</th>
+                    <th>Unit ID</th>
+                    <th>Price per Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Flour</td>
+                    <td>5</td>
+                    <td>$0.50</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sugar</td>
+                    <td>5</td>
+                    <td>$0.65</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Eggs</td>
+                    <td>6</td>
+                    <td>$0.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Milk</td>
+                    <td>6</td>
+                    <td>$0.10</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Butter</td>
+                    <td>5</td>
+                    <td>$1.00</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Baking Powder</td>
+                    <td>4</td>
+                    <td>$0.03</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Vanilla Extract</td>
+                    <td>4</td>
+                    <td>$0.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Chocolate Chips</td>
+                    <td>2</td>
+                    <td>$1.50</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Olive Oil</td>
+                    <td>6</td>
+                    <td>$0.15</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Tomato Sauce</td>
+                    <td>5</td>
+                    <td>$0.75</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Cheese</td>
+                    <td>2</td>
+                    <td>$1.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Pepperoni</td>
+                    <td>2</td>
+                    <td>$0.80</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <dialog id="add-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Add Ingredient</span>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="add-ingredient-form">
+                    <label for="name">Ingredient Name:</label>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="unit">Unit:</label>
+                    <select id="unit" name="unit">
+                        <option disabled>Select a unit</option>
+                        <option value="lb">lb</option>
+                        <option value="oz">oz</option>
+                        <option value="tsp">tsp</option>
+                        <option value="tbsp">tbsp</option>
+                    </select>
+
+                    <label for="price">Price per Unit:</label>
+                    <input type="text" id="price" name="price"><br>
+
+                    <label>Dietary Restrictions:</label>
+                    <div class="flex gap">
+                        <input type="checkbox" id="veg" name="veg" value="Vegetarian" />
+                        <label for="non-veg">Vegetarian Friendly</label><br>
+                    </div>
+                    <div class="flex gap">
+                        <input type="checkbox" id="vegan" name="vegan" value="Vegan" />
+                        <label for="non-veg">Vegan Friendly</label><br>
+                    </div>
+
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </dialog>
+        <dialog id="delete-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="close-add-ingredient-modal" class="close">&times;</span>
+                </div>
+                <div class="flex justify-center">
+                    <span>Are you sure you want to delete this ingredient?</span>
+                </div>
+                <div class="flex gap justify-center">
+                    <button>Cancel</button>
+                    <button>Confirm</button>
+                </div>
+            </div>
+        </dialog>
+        <script>
+            const addIngredientBtn = document.getElementById('add-ingredient-btn');
+            const addIngredientModal = document.getElementById('add-ingredient-modal');
+            const deleteIngredientModal = document.getElementById('delete-ingredient-modal');
+            const closeBtns = document.querySelectorAll('.close');
+            const addIngredientForm = document.getElementById('add-ingredient-form');
+            const editBtns = document.querySelectorAll('.edit-btn');
+            const deleteBtns = document.querySelectorAll('.del-btn');
+
+            // Open modal when Add New Ingredient button is clicked
+            addIngredientBtn.addEventListener('click', function () {
+                addIngredientModal.style.display = 'block';
+            });
+
+            // Close modal when close button is clicked
+            closeBtns.forEach(function (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    // They're for different modals but it doesn't matter
+                    // since they're never supposed to stack on top of one another
+                    addIngredientModal.style.display = 'none';
+                    deleteIngredientModal.style.display = 'none';
+                });
+            });
+
+            // Close modal when outside modal content is clicked
+            window.addEventListener('click', function (event) {
+                if (event.target == addIngredientModal) {
+                    addIngredientModal.style.display = 'none';
+                }
+                if (event.target == deleteIngredientModal) {
+                    deleteIngredientModal.style.display = 'none';
+                }
+            });
+
+            // Open modal when Edit button is clicked
+            editBtns.forEach(function (editBtn) {
+                editBtn.addEventListener('click', function () {
+                    addIngredientModal.style.display = 'block';
+                });
+            });
+
+            deleteBtns.forEach(function (deleteBtn) {
+                deleteBtn.addEventListener('click', function () {
+                    deleteIngredientModal.style.display = 'block';
+                });
+            });
+        </script>
+    </main>
+</body>
+
+=======
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>No More Ramen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+        <div class="center">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ingredients.html">Ingredients</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="units.html">Units</a></li>
+                <li><a href="users.html">Users</a></li>
+                <li><a href="recipe-ingredients.html">Recipe Ingredients</a></li>
+                <li><a href="ingredient-restrictions.html">Ingredient Restrictions</a></li>
+                <li><a href="restrictions.html">Restrictions</a></li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to No More Ramen</h1>
+        <button id="add-ingredient-btn">Add New Ingredient</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ingredient ID</th>
+                    <th>Ingredient Name</th>
+                    <th>Unit ID</th>
+                    <th>Price per Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Flour</td>
+                    <td>5</td>
+                    <td>$0.50</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sugar</td>
+                    <td>5</td>
+                    <td>$0.65</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Eggs</td>
+                    <td>6</td>
+                    <td>$0.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Milk</td>
+                    <td>6</td>
+                    <td>$0.10</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Butter</td>
+                    <td>5</td>
+                    <td>$1.00</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Baking Powder</td>
+                    <td>4</td>
+                    <td>$0.03</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Vanilla Extract</td>
+                    <td>4</td>
+                    <td>$0.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Chocolate Chips</td>
+                    <td>2</td>
+                    <td>$1.50</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Olive Oil</td>
+                    <td>6</td>
+                    <td>$0.15</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Tomato Sauce</td>
+                    <td>5</td>
+                    <td>$0.75</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Cheese</td>
+                    <td>2</td>
+                    <td>$1.25</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Pepperoni</td>
+                    <td>2</td>
+                    <td>$0.80</td>
+                    <td><button class="edit-btn">Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <dialog id="add-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>Add Ingredient</span>
+                    <span class="close">&times;</span>
+                </div>
+                <form id="add-ingredient-form">
+                    <label for="name">Ingredient Name:</label>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="unit">Unit:</label>
+                    <select id="unit" name="unit">
+                        <option disabled>Select a unit</option>
+                        <option value="lb">lb</option>
+                        <option value="oz">oz</option>
+                        <option value="tsp">tsp</option>
+                        <option value="tbsp">tbsp</option>
+                    </select>
+
+                    <label for="price">Price per Unit:</label>
+                    <input type="text" id="price" name="price"><br>
+
+                    <label>Dietary Restrictions:</label>
+                    <div class="flex gap">
+                        <input type="checkbox" id="veg" name="veg" value="Vegetarian" />
+                        <label for="non-veg">Vegetarian Friendly</label><br>
+                    </div>
+                    <div class="flex gap">
+                        <input type="checkbox" id="vegan" name="vegan" value="Vegan" />
+                        <label for="non-veg">Vegan Friendly</label><br>
+                    </div>
+
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </dialog>
+        <dialog id="delete-ingredient-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="close-add-ingredient-modal" class="close">&times;</span>
+                </div>
+                <div class="flex justify-center">
+                    <span>Are you sure you want to delete this ingredient?</span>
+                </div>
+                <div class="flex gap justify-center">
+                    <button>Cancel</button>
+                    <button>Confirm</button>
+                </div>
+            </div>
+        </dialog>
+        <script>
+            const addIngredientBtn = document.getElementById('add-ingredient-btn');
+            const addIngredientModal = document.getElementById('add-ingredient-modal');
+            const deleteIngredientModal = document.getElementById('delete-ingredient-modal');
+            const closeBtns = document.querySelectorAll('.close');
+            const addIngredientForm = document.getElementById('add-ingredient-form');
+            const editBtns = document.querySelectorAll('.edit-btn');
+            const deleteBtns = document.querySelectorAll('.del-btn');
+
+            // Open modal when Add New Ingredient button is clicked
+            addIngredientBtn.addEventListener('click', function () {
+                addIngredientModal.style.display = 'block';
+            });
+
+            // Close modal when close button is clicked
+            closeBtns.forEach(function (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    // They're for different modals but it doesn't matter
+                    // since they're never supposed to stack on top of one another
+                    addIngredientModal.style.display = 'none';
+                    deleteIngredientModal.style.display = 'none';
+                });
+            });
+
+            // Close modal when outside modal content is clicked
+            window.addEventListener('click', function (event) {
+                if (event.target == addIngredientModal) {
+                    addIngredientModal.style.display = 'none';
+                }
+                if (event.target == deleteIngredientModal) {
+                    deleteIngredientModal.style.display = 'none';
+                }
+            });
+
+            // Open modal when Edit button is clicked
+            editBtns.forEach(function (editBtn) {
+                editBtn.addEventListener('click', function () {
+                    addIngredientModal.style.display = 'block';
+                });
+            });
+
+            deleteBtns.forEach(function (deleteBtn) {
+                deleteBtn.addEventListener('click', function () {
+                    deleteIngredientModal.style.display = 'block';
+                });
+            });
+        </script>
+    </main>
+</body>
+
+>>>>>>> 41c67c8... Set up nodejs project and implemented Users CRUD:app/views/ingredients.html
+</html>
