@@ -9,10 +9,6 @@ https://web.engr.oregonstate.edu/~guzmannt/cs340/No_More_Ramen/app/index.html (o
 
 ![color palette](color_palette_for_website.png)
 
-<h3>Data Explanation</h3>
-<a href="https://github.com/TeresitaCGNader/No_More_Ramen/blob/main/Data_Explanation.pdf" title="PDF">PDF</a>
-
-![Schema](schema.png)
 
 ## Setup Local Docker instance for testing database
 
