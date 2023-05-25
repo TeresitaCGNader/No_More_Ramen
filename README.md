@@ -1,5 +1,6 @@
 <h1>Live Website</h1>
 https://web.engr.oregonstate.edu/~guzmannt/cs340/No_More_Ramen/app/index.html (old version)
+http://flip1.engr.oregonstate.edu:5550/users (new version)
 
 <h1>Project Overview</h1>
 <p>Navigating the complexities of budgeting as a college student has always been a challenge. LivingCost reports that Corvallis, Oregon has an average cost of living of $1983[1]. However, three of the most crucial groceries for college students, namely eggs (12 for $3.74), rice (1 kg or 2.2 lb for $3.51), and chicken breast (1 kg or 2.2 lb for $11.1), are among the priciest items. Consequently, they often resort to austerity foods such as instant mac and cheese, ramen, oatmeal, etc. Our mission is to empower students with exciting meal options that promote both financial savviness and culinary satisfaction, enabling them to cut down expenses without compromising on their taste buds or health.</p>
