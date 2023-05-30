@@ -1,0 +1,120 @@
+<main>
+    <h1>{{title}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Recipe ID</th>
+                <th>Recipe Name</th>
+                <th>Ingredient ID</th>
+                <th>Ingredient Name</th>
+                <th>Unit Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ri}}
+                <tr>
+                    <td>{{this.recipe_id}}</td>
+                    <td>{{this.recipe_name}}</td>
+                    <td>{{this.ingredient_id}}</td>
+                    <td>{{this.ingredient_name}}</td>
+                    <td>{{this.unit_name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td><button class='edit-btn'>Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <dialog id='edit-ri-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span>Edit Recipe Ingredient</span>
+                <span class='close'>&times;</span>
+            </div>
+            <form id='edit-ri-form'>
+                <label for='type'>Quantity:</label>
+                <input type='number' id='edit-quantity' name='quantity' /><br />
+                <input type='submit' value='Update' />
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id='delete-ri-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span id='close' class='close'>&times;</span>
+            </div>
+            <div class='flex justify-center'>
+                <span>Are you sure you want to delete this recipe ingredient?</span>
+            </div>
+            <div class='flex gap justify-center'>
+                <button>Cancel</button>
+                <button>Confirm</button>
+            </div>
+        </div>
+    </dialog>
+</main>
+<script>
+// Elements
+const deleteRIModal = document.getElementById('delete-ri-modal');
+const editRIModal = document.getElementById('edit-ri-modal');
+const editRIForm = document.getElementById('edit-ri-form');
+
+let recipeId;  // Variable to hold the current Recipe Ingredient ID.
+let ingredientId;
+
+// Event handlers
+
+// Close modals when clicking 'x' or 'Cancel'
+for(let modal of [deleteRIModal, editRIModal]) {
+    modal.querySelector('.close').addEventListener('click', () => modal.close());
+}
+
+// Handle all ri actions
+document.addEventListener('click', event => {
+    const row = event.target.closest('tr');
+    if (!row) return;
+
+    recipeId = row.children[0].textContent;
+    ingredientId = row.children[2].textContent;
+    if (event.target.classList.contains('edit-btn')) {
+        document.getElementById('edit-quantity').value = row.children[5].textContent;
+        editRIModal.showModal();
+    } else if (event.target.classList.contains('del-btn')) {
+        deleteRIModal.showModal();
+    }
+});
+
+// Form submissions
+editRIForm.addEventListener('submit', handleUpdateRI);
+
+deleteRIModal.querySelector('button:nth-child(1)').addEventListener('click', () => deleteRIModal.close());
+deleteRIModal.querySelector('button:nth-child(2)').addEventListener('click', handleDeleteRI);
+
+// Fetch requests
+async function handleUpdateRI(event) {
+    event.preventDefault();
+
+    const response = await fetch(`/recipe-ingredients/?recipe_id=${recipeId}&ingredient_id=${ingredientId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            quantity: document.getElementById('edit-quantity').value,
+        }),
+    });
+
+    if (response.ok) {
+        editRIModal.close();
+        location.reload();
+    }
+}
+
+async function handleDeleteRI() {
+    await fetch(`/recipe-ingredients/?recipe_id=${recipeId}&ingredient_id=${ingredientId}`, { method: 'DELETE' });
+
+    deleteRIModal.close();
+    location.reload();
+}
+</script>
