@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mysqlConnection = require('./db/connection');
 
 const userRoutes = require('./routes/users');
+const restrRoutes = require('./routes/restrictions');
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ mysqlConnection.connect((err) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/restrictions', restrRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
