@@ -8,6 +8,10 @@ const mysqlConnection = require('./db/connection');
 const userRoutes = require('./routes/users');
 const restrRoutes = require('./routes/restrictions');
 const recipeIngRoutes = require('./routes/recipeIngredients');
+const recipeIngRoutes = require('./units/unitsRoutes');
+const recipeIngRoutes = require('./ingredients/ingrRoutes');
+const recipeIngRoutes = require('./recipes/recipesRoutes');
+
 
 dotenv.config();
 
@@ -34,6 +38,9 @@ mysqlConnection.connect((err) => {
 app.use('/users', userRoutes);
 app.use('/restrictions', restrRoutes);
 app.use('/recipe-ingredients', recipeIngRoutes);
+app.use('/units', unitsRoutes);
+app.use('/ingredients', ingrRoutes);
+app.use('/recipes', recipesRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
