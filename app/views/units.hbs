@@ -92,7 +92,6 @@ document.addEventListener('click', event => {
     unitId = row.children[0].textContent;
     if (event.target.classList.contains('edit-btn')) {
         document.getElementById('edit-unit-name').value = row.children[1].textContent;
-        document.getElementById('edit-unit-description').value = row.children[2].textContent;
         editUnitModal.showModal();
     } else if (event.target.classList.contains('del-btn')) {
         deleteUnitModal.showModal();
@@ -131,7 +130,6 @@ async function handleUpdateUnit(event) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: document.getElementById('edit-unit-name').value,
-            description: document.getElementById('edit-unit-description').value,
         }),
     });
 

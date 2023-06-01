@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
         return;
     }
 
-    let sql = 'INSERT INTO Units (name) VALUES (?)';
+    let sql = 'INSERT INTO Units (name, measurement_type) VALUES (?, 1)';
     let data = [req.body.name];
 
     connection.execute(sql, data, (err, results) => {
