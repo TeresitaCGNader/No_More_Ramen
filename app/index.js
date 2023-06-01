@@ -8,9 +8,9 @@ const mysqlConnection = require('./db/connection');
 const userRoutes = require('./routes/users');
 const restrRoutes = require('./routes/restrictions');
 const recipeIngRoutes = require('./routes/recipeIngredients');
-const recipeIngRoutes = require('./units/unitsRoutes');
-const recipeIngRoutes = require('./ingredients/ingrRoutes');
-const recipeIngRoutes = require('./recipes/recipesRoutes');
+const unitsRoutes = require('./routes/units');
+const ingrRoutes = require('./routes/ingredients');
+const recipesRoutes = require('./routes/recipes');
 
 
 dotenv.config();
