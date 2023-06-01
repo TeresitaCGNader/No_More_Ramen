@@ -1,0 +1,67 @@
+<main>
+    <h1>{{title}}</h1>
+    <button id='add-unit-btn'>Add New Unit</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Unit ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each units}}
+                <tr>
+                    <td>{{this.unit_id}}</td>
+                    <td>{{this.name}}</td>
+                    <td><button class='edit-btn'>Edit</button></td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <dialog id='add-unit-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span>Add Unit</span>
+                <span class='close'>&times;</span>
+            </div>
+            <form id='add-unit-form'>
+                <label for='name'>Name:</label>
+                <input type='text' id='unit-name' name='name' /><br />
+
+                <input type='submit' value='Add' />
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id='edit-unit-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span>Edit Unit</span>
+                <span class='close'>&times;</span>
+            </div>
+            <form id='edit-unit-form'>
+                <input type='hidden' id='edit-unit-id' name='unit-id' />
+                <label for='name'>Name:</label>
+                <input type='text' id='edit-unit-name' name='name' /><br />
+                <input type='submit' value='Update' />
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id='delete-unit-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span class='close'>&times;</span>
+            </div>
+            <div class='flex justify-center'>
+                <span>Are you sure you want to delete this unit?</span>
+            </div>
+            <div class='flex gap justify-center'>
+                <button>Cancel</button>
+                <button>Confirm</button>
+            </div>
+        </div>
+    </dialog>
+</main>
