@@ -6,32 +6,37 @@ const connection = mysqlConnection;
 
 // List ingredients
 router.get('/', async (req, res) => {
-    let sql = 'SELECT * FROM Ingredients';
+    let ingrSql = 'SELECT * FROM Ingredients';
+    let unitSql = 'SELECT * FROM Units';
 
-    connection.query(sql, (err, results) => {
+    connection.query(ingrSql, (err, ingrResults) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get ingredients' });
         }
 
-        // res.send(results);
+        connection.query(unitSql, (err, unitResults) => {
+            if (err) {
+                res.status(500).json({ message: 'Failed to get units' });
+            }
 
-        const data = {
-            title: 'Ingredients',
-            users: results,
-        };
+            const data = {
+                title: 'Ingredients',
+                ingredients: ingrResults,
+                units: unitResults,
+            };
 
-        res.render('./ingredients', data);
-
+            res.render('./ingredients', data);
+        });
     });
 });
 
 // Create ingredient
 router.post('/', async (req, res) => {
-    const { nameInput, unitIdInput, pricePerUnitInput } = req.body;
+    const { name, unit, price } = req.body;
 
     let sql =
         'INSERT INTO Ingredients (name, unit_id, price_per_unit) VALUES (?, ?, ?)';
-    let data = [nameInput, unitIdInput, pricePerUnitInput];
+    let data = [name, unit, price];
 
     connection.query(sql, data, (err, results) => {
         if (err) {
@@ -44,12 +49,12 @@ router.post('/', async (req, res) => {
 
 // Edit ingredient
 router.put('/:ingredientId', async (req, res) => {
-    const { nameInput, unitIdInput, pricePerUnitInput } = req.body;
-    const ingredientIdInput = req.params.ingredientId;
+    const { name, unit, price } = req.body;
+    const ingredientId = req.params.ingredientId;
 
     let sql =
         'UPDATE Ingredients SET name = ?, unit_id = ?, price_per_unit = ? WHERE ingredient_id = ?';
-    let data = [nameInput, unitIdInput, pricePerUnitInput, ingredientIdInput];
+    let data = [name, unit, price, ingredientId];
 
     connection.query(sql, data, (err, results) => {
         if (err) {

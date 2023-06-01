@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            {{#each users}}
+            {{#each ingredients}}
                 <tr>
                     <td>{{this.ingredient_id}}</td>
                     <td>{{this.name}}</td>
@@ -37,14 +37,13 @@
             <label for="unit">Unit:</label>
             <select id="unit" name="unit">
                 <option disabled>Select a unit</option>
-                <option value="lb">lb</option>
-                <option value="oz">oz</option>
-                <option value="tsp">tsp</option>
-                <option value="tbsp">tbsp</option>
+                {{#each units}}
+                    <option value="{{this.unit_id}}">{{this.name}}</option>
+                {{/each}}
             </select>
 
             <label for="price">Price per Unit:</label>
-            <input type="text" id="price" name="price"><br>
+            <input type="number" step="0.01" id="price" name="price"><br>
 
             <label>Dietary Restrictions:</label>
             <div class="flex gap">
@@ -53,7 +52,7 @@
             </div>
             <div class="flex gap">
                 <input type="checkbox" id="vegan" name="vegan" value="Vegan" />
-                <label for="non-veg">Vegan Friendly</label><br>
+                <label for="non-vegan">Vegan Friendly</label><br>
             </div>
 
             <input type="submit" value="Add">
@@ -64,13 +63,22 @@
     <dialog id='edit-ingredient-modal' class='modal'>
         <div class='modal-content'>
             <div class='modal-header'>
-                <span>Edit Unit</span>
+                <span>Edit Ingredient</span>
                 <span class='close'>&times;</span>
             </div>
             <form id='edit-ingredient-form'>
-                <input type='hidden' id='edit-unit-id' name='unit-id' />
+                <input type='hidden' id='edit-ingr-id' name='unitId' />
                 <label for='name'>Name:</label>
-                <input type='text' id='edit-unit-name' name='name' /><br />
+                <input type='text' id='edit-ingr-name' name='name' /><br />
+                <label for="unit">Unit:</label>
+                <select id="edit-unit" name="unit">
+                    <option disabled>Select a unit</option>
+                    {{#each units}}
+                        <option value="{{this.unit_id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+                <label for="price">Price per Unit:</label>
+                <input type="number" step="0.01" id="edit-price" name="price"><br>
                 <input type='submit' value='Update' />
             </form>
         </div>
@@ -117,7 +125,9 @@ document.addEventListener('click', (event) => {
 
   ingredientId = row.children[0].textContent;
   if (event.target.classList.contains('edit-btn')) {
-    document.getElementById('edit-unit-name').value = row.children[1].textContent;
+    document.getElementById('edit-ingr-name').value = row.children[1].textContent;
+    document.getElementById('edit-unit').value = row.children[2].textContent;
+    document.getElementById('edit-price').value = row.children[3].textContent;
     editIngredientModal.showModal();
   } else if (event.target.classList.contains('del-btn')) {
     deleteIngredientModal.showModal();
@@ -155,7 +165,9 @@ async function handleUpdateIngredient(event) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      nameInput: document.getElementById('edit-unit-name').value,
+      name: document.getElementById('edit-ingr-name').value,
+      unit: document.getElementById('edit-unit').value,
+      price: document.getElementById('edit-price').value, 
     }),
   });
 
