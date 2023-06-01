@@ -6,6 +6,7 @@
             <tr>
                 <th>Unit ID</th>
                 <th>Name</th>
+                <th>Measurement Type</th>
             </tr>
         </thead>
         <tbody>
@@ -13,6 +14,7 @@
                 <tr>
                     <td>{{this.unit_id}}</td>
                     <td>{{this.name}}</td>
+                    <td>{{this.measurement_type}}</td>
                     <td><button class='edit-btn'>Edit</button></td>
                     <td><button class='del-btn'>Delete</button></td>
                 </tr>
@@ -29,6 +31,8 @@
             <form id='add-unit-form'>
                 <label for='name'>Name:</label>
                 <input type='text' id='unit-name' name='name' /><br />
+                <label for='name'>Measurement Type:</label>
+                <input type='text' id='measurement-type' name='measurementType' /><br />
 
                 <input type='submit' value='Add' />
             </form>
@@ -45,6 +49,8 @@
                 <input type='hidden' id='edit-unit-id' name='unit-id' />
                 <label for='name'>Name:</label>
                 <input type='text' id='edit-unit-name' name='name' /><br />
+                <label for='name'>Measurement Type:</label>
+                <input type='text' id='edit-measurement-type' name='measurement-type' /><br />
                 <input type='submit' value='Update' />
             </form>
         </div>
@@ -92,6 +98,7 @@ document.addEventListener('click', event => {
     unitId = row.children[0].textContent;
     if (event.target.classList.contains('edit-btn')) {
         document.getElementById('edit-unit-name').value = row.children[1].textContent;
+        document.getElementById('edit-measurement-type').value = row.children[2].textContent;
         editUnitModal.showModal();
     } else if (event.target.classList.contains('del-btn')) {
         deleteUnitModal.showModal();
@@ -130,6 +137,7 @@ async function handleUpdateUnit(event) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: document.getElementById('edit-unit-name').value,
+            measurement_type: document.getElementById('edit-measurement-type').value,
         }),
     });
 
