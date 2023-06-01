@@ -12,6 +12,7 @@ const recipeIngRoutes = require('./routes/recipeIngredients');
 const unitsRoutes = require('./routes/units');
 const ingrRoutes = require('./routes/ingredients');
 const recipesRoutes = require('./routes/recipes');
+const ingrRestrRoutes = require('./routes/ingredientRestrictions');
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/recipe-ingredients', recipeIngRoutes);
 app.use('/units', unitsRoutes);
 app.use('/ingredients', ingrRoutes);
 app.use('/recipes', recipesRoutes);
+app.use('/ingredient-restrictions', ingrRestrRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);

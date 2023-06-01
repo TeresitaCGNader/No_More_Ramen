@@ -1,0 +1,74 @@
+<main>
+    <h1>{{title}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient ID</th>
+                <th>Ingredient Name</th>
+                <th>Restriction ID</th>
+                <th>Restriction Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ir}}
+                <tr>
+                    <td>{{this.ingredient_id}}</td>
+                    <td>{{this.ingredient_name}}</td>
+                    <td>{{this.restr_id}}</td>
+                    <td>{{this.restr_name}}</td>
+                    <td><button class='del-btn'>Delete</button></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <dialog id='delete-ir-modal' class='modal'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <span id='close' class='close'>&times;</span>
+            </div>
+            <div class='flex justify-center'>
+                <span>Are you sure you want to delete this ingredient restriction?</span>
+            </div>
+            <div class='flex gap justify-center'>
+                <button>Cancel</button>
+                <button>Confirm</button>
+            </div>
+        </div>
+    </dialog>
+</main>
+<script>
+// Elements
+const deleteIRModal = document.getElementById('delete-ir-modal');
+
+// Currently selected row IDs
+let ingrId;
+let restrId;
+
+// Close modals when clicking 'x' or 'Cancel'
+for(let modal of [deleteIRModal]) {
+    modal.querySelector('.close').addEventListener('click', () => modal.close());
+}
+
+// Handle all ir actions
+document.addEventListener('click', event => {
+    const row = event.target.closest('tr');
+    if (!row) return;
+
+    ingrId = row.children[0].textContent;
+    restrId = row.children[2].textContent;
+    if (event.target.classList.contains('del-btn')) {
+        deleteIRModal.showModal();
+    }
+});
+
+deleteIRModal.querySelector('button:nth-child(1)').addEventListener('click', () => deleteIRModal.close());
+deleteIRModal.querySelector('button:nth-child(2)').addEventListener('click', handleDeleteIR);
+
+async function handleDeleteIR() {
+    await fetch(`/ingredient-restrictions/?ingredient_id=${ingrId}&restr_id=${restrId}`, { method: 'DELETE' });
+
+    deleteIRModal.close();
+    location.reload();
+}
+</script>
