@@ -65,3 +65,86 @@
         </div>
     </dialog>
 </main>
+
+<script>
+// Elements
+const addUnitModal = document.getElementById('add-unit-modal');
+const addUnitForm = document.getElementById('add-unit-form');
+const deleteUnitModal = document.getElementById('delete-unit-modal');
+const editUnitModal = document.getElementById('edit-unit-modal');
+const editUnitForm = document.getElementById('edit-unit-form');
+
+let unitId;  // Variable to hold the current Unit ID.
+
+// Event handlers
+document.querySelector('#add-unit-btn').addEventListener('click', () => addUnitModal.showModal());
+
+// Close modals when clicking 'x' or 'Cancel'
+for(let modal of [addUnitModal, deleteUnitModal, editUnitModal]) {
+    modal.querySelector('.close').addEventListener('click', () => modal.close());
+}
+
+// Handle all unit actions
+document.addEventListener('click', event => {
+    const row = event.target.closest('tr');
+    if (!row) return;
+
+    unitId = row.children[0].textContent;
+    if (event.target.classList.contains('edit-btn')) {
+        document.getElementById('edit-unit-name').value = row.children[1].textContent;
+        document.getElementById('edit-unit-description').value = row.children[2].textContent;
+        editUnitModal.showModal();
+    } else if (event.target.classList.contains('del-btn')) {
+        deleteUnitModal.showModal();
+    }
+});
+
+// Form submissions
+addUnitForm.addEventListener('submit', handleCreateUnit);
+editUnitForm.addEventListener('submit', handleUpdateUnit);
+
+deleteUnitModal.querySelector('button:nth-child(1)').addEventListener('click', () => deleteUnitModal.close());
+deleteUnitModal.querySelector('button:nth-child(2)').addEventListener('click', handleDeleteUnit);
+
+// Fetch requests
+async function handleCreateUnit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const unitData = Object.fromEntries(formData);
+
+    await fetch('/units', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(unitData),
+    });
+
+    addUnitModal.close();
+    location.reload();
+}
+
+async function handleUpdateUnit(event) {
+    event.preventDefault();
+
+    const response = await fetch(`/units/${unitId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: document.getElementById('edit-unit-name').value,
+            description: document.getElementById('edit-unit-description').value,
+        }),
+    });
+
+    if (response.ok) {
+        editUnitModal.close();
+        location.reload();
+    }
+}
+
+async function handleDeleteUnit() {
+    await fetch(`/units/${unitId}`, { method: 'DELETE' });
+
+    deleteUnitModal.close();
+    location.reload();
+}
+</script>
