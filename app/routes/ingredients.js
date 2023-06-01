@@ -13,7 +13,15 @@ router.get('/', async (req, res) => {
             throw err;
         }
 
-        res.send(results);
+        // res.send(results);
+
+        const data = {
+            title: 'Ingredients',
+            users: results,
+        };
+
+        res.render('./ingredients', data);
+
     });
 });
 
