@@ -5,13 +5,13 @@ const bodyParser = require('body-parser');
 
 const mysqlConnection = require('./db/connection');
 
+const homeRoutes = require('./routes/index');
 const userRoutes = require('./routes/users');
 const restrRoutes = require('./routes/restrictions');
 const recipeIngRoutes = require('./routes/recipeIngredients');
 const unitsRoutes = require('./routes/units');
 const ingrRoutes = require('./routes/ingredients');
 const recipesRoutes = require('./routes/recipes');
-
 
 dotenv.config();
 
@@ -35,6 +35,7 @@ mysqlConnection.connect((err) => {
     console.log('Connected to MySQL Server!');
 });
 
+app.use('/', homeRoutes);
 app.use('/users', userRoutes);
 app.use('/restrictions', restrRoutes);
 app.use('/recipe-ingredients', recipeIngRoutes);
