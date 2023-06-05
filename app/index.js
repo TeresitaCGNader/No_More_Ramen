@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const mysqlConnection = require('./db/connection');
 
@@ -27,6 +28,7 @@ app.engine(
 app.set('view engine', 'hbs');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 mysqlConnection.connect((err) => {
     if (err) {

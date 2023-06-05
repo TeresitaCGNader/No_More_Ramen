@@ -13,12 +13,7 @@ router.get('/', async (req, res) => {
             throw err;
         }
 
-        const data = {
-            title: 'Users',
-            users: results,
-        };
-
-        res.render('./users', data);
+        res.json(results);
     });
 });
 
