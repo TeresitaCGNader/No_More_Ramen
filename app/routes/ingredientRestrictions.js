@@ -20,12 +20,7 @@ router.get('/', async (req, res) => {
             });
         }
 
-        const data = {
-            title: 'Ingredient Restrictions',
-            ir: results,
-        };
-
-        res.render('./ingredient-restrictions', data);
+        res.json(results);
     });
 });
 
@@ -49,7 +44,7 @@ router.post('/', async (req, res) => {
             });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 

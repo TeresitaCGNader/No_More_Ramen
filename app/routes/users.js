@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get users' });
         }
 
         res.json(results);
@@ -30,10 +30,10 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to create user' });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -58,7 +58,7 @@ router.put('/:id', async (req, res) => {
             res.status(500).json({ message: 'Failed to update user' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -69,7 +69,7 @@ router.delete('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to delete user' });
         }
 
         res.status(204).send();

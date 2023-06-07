@@ -10,17 +10,10 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get recipes' });
         }
 
-        // res.send(results);
-
-        const data = {
-            title: 'Recipes',
-            users: results,
-        };
-
-        res.render('./recipes', data);
+        res.json(results);
     });
 });
 
@@ -30,10 +23,10 @@ router.get('/latest', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get latest recipes' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -41,16 +34,15 @@ router.get('/latest', async (req, res) => {
 router.post('/', async (req, res) => {
     const { authorIdInput, nameInput, contentInput } = req.body;
 
-    let sql =
-        'INSERT INTO Recipes (author_id, name, content) VALUES (?, ?, ?)';
+    let sql = 'INSERT INTO Recipes (author_id, name, content) VALUES (?, ?, ?)';
     let data = [authorIdInput, nameInput, contentInput];
 
     connection.query(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to create recipe' });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -65,10 +57,10 @@ router.put('/:recipeId', async (req, res) => {
 
     connection.query(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to update recipe' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -81,7 +73,7 @@ router.delete('/:recipeId', async (req, res) => {
 
     connection.query(sql, data, (err) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to delete recipe' });
         }
 
         res.status(204).send();
@@ -103,10 +95,10 @@ router.get('/:recipeId/restrictions', async (req, res) => {
 
     connection.query(sql, [recipeIdInput], (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get restrictions' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -129,10 +121,10 @@ router.post('/filter', async (req, res) => {
 
     connection.query(sql, [restrNameInputs], (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to filter recipes' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 

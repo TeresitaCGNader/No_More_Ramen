@@ -17,15 +17,12 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({
+                message: 'Failed to get recipe ingredients',
+            });
         }
 
-        const data = {
-            title: 'Recipe Ingredients',
-            ri: results,
-        };
-
-        res.render('./recipe-ingredients', data);
+        res.json(results);
     });
 });
 
@@ -57,7 +54,7 @@ router.post('/', async (req, res) => {
             });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -87,7 +84,7 @@ router.put('/', async (req, res) => {
             });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 

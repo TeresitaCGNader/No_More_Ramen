@@ -10,15 +10,10 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get restrictions' });
         }
 
-        const data = {
-            title: 'Restrictions',
-            restrictions: results,
-        };
-
-        res.render('./restrictions', data);
+        res.json(results);
     });
 });
 
@@ -34,10 +29,10 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to create restriction' });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -56,7 +51,7 @@ router.put('/:id', async (req, res) => {
             res.status(500).json({ message: 'Failed to update restriction' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -67,7 +62,7 @@ router.delete('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to delete restriction' });
         }
 
         res.status(204).send();

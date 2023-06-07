@@ -10,15 +10,10 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to get units' });
         }
 
-        const data = {
-            title: 'Units',
-            units: results,
-        };
-
-        res.render('./units', data);
+        res.json(results);
     });
 });
 
@@ -26,7 +21,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     if (!req.body.name || !req.body.measurementType) {
         res.status(400).json({ message: 'Invalid request' });
-        return;
     }
 
     let sql = 'INSERT INTO Units (name, measurement_type) VALUES (?, ?)';
@@ -34,10 +28,10 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to create unit' });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -58,7 +52,7 @@ router.put('/:id', async (req, res) => {
             return;
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 

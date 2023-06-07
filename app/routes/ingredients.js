@@ -20,12 +20,11 @@ router.get('/', async (req, res) => {
             }
 
             const data = {
-                title: 'Ingredients',
                 ingredients: ingrResults,
                 units: unitResults,
             };
 
-            res.render('./ingredients', data);
+            res.json(data);
         });
     });
 });
@@ -40,10 +39,10 @@ router.post('/', async (req, res) => {
 
     connection.query(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to create ingredient' });
         }
 
-        res.status(201).send(results);
+        res.status(201).json(results);
     });
 });
 
@@ -58,10 +57,10 @@ router.put('/:ingredientId', async (req, res) => {
 
     connection.query(sql, data, (err, results) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to update ingredient' });
         }
 
-        res.send(results);
+        res.json(results);
     });
 });
 
@@ -74,7 +73,7 @@ router.delete('/:ingredientId', async (req, res) => {
 
     connection.query(sql, data, (err) => {
         if (err) {
-            throw err;
+            res.status(500).json({ message: 'Failed to delete ingredient' });
         }
 
         res.status(204).send();
