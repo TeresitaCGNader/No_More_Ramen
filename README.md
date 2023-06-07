@@ -10,7 +10,6 @@ http://flip1.engr.oregonstate.edu:5550/users (new version with database)
 
 ![color palette](color_palette_for_website.png)
 
-
 ## Setup Local Docker instance for testing database
 
 1. Install Docker
@@ -18,3 +17,11 @@ http://flip1.engr.oregonstate.edu:5550/users (new version with database)
 3. Connect to it on MySQL Workbench.
 4. Run `CREATE DATABASE db; USE db;` in a Query Executor.
 5. Copy and paste the contents of `DDL.SQL` and Execute.
+
+## Running the frontend
+
+1. `cd frontend/no-more-ramen-web`
+2. Open `config/api.js` and edit the base URL to the server URL (eg. `'http://flip1.engr.oregonstate.edu:5550/'` if it isn't already).
+3. `npm i`
+4. `npm run dev` -- This should start up the app on your browser.
+5. Any changes you make should be reflected on save. If not, kill the process and go back to step 4.
