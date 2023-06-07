@@ -7,16 +7,16 @@ import Dialog from '@/components/modal/Dialog';
 /**
  * Status:
  *
- * GET: Working
+ * GET: TODO
  * POST: TODO
  * PUT: TODO
- * DELETE: Working
+ * DELETE: TODO
  */
 
-const IngredientsPage = () => {
+const RecipesPage = () => {
     // Rename this
-    const [ingredients, setIngredients] = useState([]);
-    const [selectedIngredient, setSelectedIngredient] = useState({});
+    const [recipes, setRecipes] = useState([]);
+    const [selectedRecipe, setSelectedRecipe] = useState({});
 
     // Dialog states - Leave alone
     const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
@@ -30,7 +30,7 @@ const IngredientsPage = () => {
         await fetch(api.ingredients)
             .then((res) => res.json())
             .then((data) => {
-                setIngredients(data.ingredients);
+                setRecipes(data.ingredients);
             });
     };
 
@@ -61,7 +61,7 @@ const IngredientsPage = () => {
             measurement_type: event.target.measurement_type.value,
         };
 
-        await fetch(api.ingredients + `/${selectedIngredient.ingredient_id}`, {
+        await fetch(api.ingredients + `/${selectedRecipe.ingredient_id}`, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const IngredientsPage = () => {
     };
 
     const deleteUnit = async () => {
-        await fetch(api.ingredients + `/${selectedIngredient.ingredient_id}`, {
+        await fetch(api.ingredients + `/${selectedRecipe.ingredient_id}`, {
             method: 'DELETE',
         });
         getIngredients();
@@ -82,12 +82,12 @@ const IngredientsPage = () => {
     // ----------------------------
 
     const openEditForm = (data) => {
-        setSelectedIngredient(data);
+        setSelectedRecipe(data);
         setIsEditFormOpen(true);
     };
 
     const openDeleteConfirmation = (data) => {
-        setSelectedIngredient(data);
+        setSelectedRecipe(data);
         setIsDeleteConfirmationOpen(true);
     };
 
@@ -116,8 +116,8 @@ const IngredientsPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {ingredients &&
-                        ingredients.map((data, index) => (
+                    {recipes &&
+                        recipes.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.ingredient_id}</td>
                                 <td>{data.name}</td>
@@ -226,4 +226,4 @@ const IngredientsPage = () => {
     );
 };
 
-export default IngredientsPage;
+export default RecipesPage;

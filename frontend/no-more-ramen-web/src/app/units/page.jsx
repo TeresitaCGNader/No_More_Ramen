@@ -4,6 +4,15 @@ import { useState, useEffect } from 'react';
 import api from '../../config/api';
 import Dialog from '@/components/modal/Dialog';
 
+/**
+ * Status:
+ *
+ * GET: Working
+ * POST: Working
+ * PUT: Working
+ * DELETE: Working
+ */
+
 const UnitsPage = () => {
     // Rename this
     const [units, setUnits] = useState([]);
@@ -88,7 +97,7 @@ const UnitsPage = () => {
 
     return (
         <main className="p-8 flex flex-col gap-y-4">
-            <h1>Users</h1>
+            <h1>Units</h1>
             <div className="flex justify-end">
                 <button
                     className="cta-button"
