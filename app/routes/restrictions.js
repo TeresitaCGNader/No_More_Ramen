@@ -10,10 +10,12 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to get restrictions' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to get restrictions' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -21,7 +23,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     // Body validation
     if (!req.body.name) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql = 'INSERT INTO Restrictions (name) VALUES (?)';
@@ -29,10 +31,12 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to create restriction' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to create restriction' });
         }
 
-        res.status(201).json(results);
+        return res.status(201).json(results);
     });
 });
 
@@ -40,7 +44,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     // Body validation
     if (!req.body.name) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql = 'UPDATE Restrictions SET name = ? WHERE restr_id = ?';
@@ -48,10 +52,12 @@ router.put('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to update restriction' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to update restriction' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -62,10 +68,12 @@ router.delete('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to delete restriction' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to delete restriction' });
         }
 
-        res.status(204).send();
+        return res.status(204).send();
     });
 });
 

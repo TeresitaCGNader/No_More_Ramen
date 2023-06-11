@@ -15,12 +15,12 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: 'Failed to get ingredient restrictions',
             });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     // Body validation
     if (!req.body.restr_id || !req.body.ingredient_id) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
@@ -39,12 +39,12 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: 'Failed to create ingredient restriction',
             });
         }
 
-        res.status(201).json(results);
+        return res.status(201).json(results);
     });
 });
 
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 router.delete('/', async (req, res) => {
     // Body validation
     if (!req.query.restr_id || !req.query.ingredient_id) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
     console.log(req.query);
 
@@ -64,12 +64,12 @@ router.delete('/', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 message: 'Failed to delete ingredient restriction',
             });
         }
 
-        res.status(204).send();
+        return res.status(204).send();
     });
 });
 
