@@ -6,54 +6,77 @@ const connection = mysqlConnection;
 
 // List ingredients
 router.get('/', async (req, res) => {
-    let ingrSql = 'SELECT * FROM Ingredients';
-    let unitSql = 'SELECT * FROM Units';
+    const sql =
+        'SELECT ' +
+        'Ingredients.ingredient_id, Ingredients.name, price_per_unit, ' +
+        'Units.unit_id, Units.name as unit_name, ' +
+        'COUNT(IngredientRestrictions.restr_id) as restr_count ' +
+        'FROM Ingredients ' +
+        'JOIN Units ON Ingredients.unit_id = Units.unit_id ' +
+        'LEFT JOIN IngredientRestrictions ON Ingredients.ingredient_id = IngredientRestrictions.ingredient_id ' +
+        'GROUP BY Ingredients.ingredient_id';
 
-    connection.query(ingrSql, (err, ingrResults) => {
+    connection.query(sql, (err, results) => {
         if (err) {
+            console.log(err);
             res.status(500).json({ message: 'Failed to get ingredients' });
         }
 
-        connection.query(unitSql, (err, unitResults) => {
-            if (err) {
-                res.status(500).json({ message: 'Failed to get units' });
-            }
-
-            const data = {
-                ingredients: ingrResults,
-                units: unitResults,
-            };
-
-            res.json(data);
-        });
+        res.json(results);
     });
 });
 
 // Create ingredient
 router.post('/', async (req, res) => {
-    const { name, unit, price } = req.body;
+    const { name, unit, price_per_unit } = req.body;
 
-    let sql =
+    const sql =
         'INSERT INTO Ingredients (name, unit_id, price_per_unit) VALUES (?, ?, ?)';
-    let data = [name, unit, price];
+    const data = [name, unit, price_per_unit];
 
-    connection.query(sql, data, (err, results) => {
+    connection.query(sql, data, async (err, results) => {
         if (err) {
             res.status(500).json({ message: 'Failed to create ingredient' });
         }
+        console.log(results);
 
-        res.status(201).json(results);
+        if (req.body.restrictions && req.body.restrictions.length > 0) {
+            let createIRSql =
+                'INSERT INTO IngredientRestrictions (ingredient_id, restr_id) VALUES ';
+            let createIRData = [];
+            for (const restriction_id of req.body.restrictions) {
+                createIRSql += '(?, ?), ';
+                createIRData.push(results.insertId);
+                createIRData.push(restriction_id);
+            }
+            // Remove last comma and space
+            createIRSql = createIRSql.slice(0, -2);
+
+            console.log(createIRSql);
+            console.log(createIRData);
+            connection.execute(createIRSql, createIRData, (err, IRresults) => {
+                if (err) {
+                    res.status(500).json({
+                        message: 'Failed to create ingredient restriction',
+                    });
+                }
+
+                res.status(201).json({ results, IRresults });
+            });
+        } else {
+            res.status(201).json(results);
+        }
     });
 });
 
 // Edit ingredient
 router.put('/:ingredientId', async (req, res) => {
-    const { name, unit, price } = req.body;
+    const { name, unit, price_per_unit } = req.body;
     const ingredientId = req.params.ingredientId;
 
     let sql =
         'UPDATE Ingredients SET name = ?, unit_id = ?, price_per_unit = ? WHERE ingredient_id = ?';
-    let data = [name, unit, price, ingredientId];
+    let data = [name, unit, price_per_unit, ingredientId];
 
     connection.query(sql, data, (err, results) => {
         if (err) {

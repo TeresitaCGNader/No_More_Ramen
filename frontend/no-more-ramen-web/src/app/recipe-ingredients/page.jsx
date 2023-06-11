@@ -5,18 +5,22 @@ import api from '../../config/api';
 import Dialog from '@/components/modal/Dialog';
 
 /**
- * Status: USING PLACEHOLDER
+ * Status:
  *
- * GET: TODO
- * POST: TODO
- * PUT: TODO
- * DELETE: TODO
+ * GET: DONE
+ * POST: DONE
+ * PUT: DONE
+ * DELETE: DONE
  */
 
-const RestrictionsPage = () => {
+const RecipeIngredientsPage = () => {
     // Rename this
-    const [restrictions, setRestrictions] = useState([]);
-    const [selectedRestriction, setSelectedRestriction] = useState({});
+    const [RI, setRI] = useState([]);
+    const [selectedRI, setSelectedRI] = useState({});
+
+    // Selectable options
+    const [recipes, setRecipes] = useState([]);
+    const [ingredients, setIngredients] = useState([]);
 
     // Dialog states - Leave alone
     const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
@@ -26,96 +30,137 @@ const RestrictionsPage = () => {
 
     // CRUD operations
     // ----------------------------
-    const getRestrictions = async () => {
-        await fetch(api.restrictions)
+    const getRI = async () => {
+        await fetch(api.recipeIngredients)
             .then((res) => res.json())
             .then((data) => {
-                setRestrictions(data);
+                setRI(data);
             });
     };
 
-    const createRestriction = async (event) => {
+    const createRI = async (event) => {
         event.preventDefault();
 
         const data = {
-            name: event.target.name.value,
+            ingredient_id: event.target.ingredient_id.value,
+            recipe_id: event.target.recipe_id.value,
+            quantity: event.target.quantity.value,
         };
 
-        await fetch(api.restrictions, {
+        await fetch(api.recipeIngredients, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
         });
-        getRestrictions();
+        getRI();
         setIsCreateFormOpen(false);
     };
 
-    const editRestriction = async (event) => {
+    const editRI = async (event) => {
         event.preventDefault();
 
         const data = {
-            name: event.target.name.value,
+            ingredient_id: event.target.ingredient_id.value,
+            recipe_id: event.target.recipe_id.value,
+            quantity: event.target.quantity.value,
         };
 
-        await fetch(api.restrictions + `/${selectedRestriction.restr_id}`, {
+        await fetch(api.recipeIngredients, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'PUT',
         });
-        getRestrictions();
+        getRI();
         setIsEditFormOpen(false);
     };
 
-    const deleteRestriction = async () => {
-        await fetch(api.restrictions + `/${selectedRestriction.restr_id}`, {
-            method: 'DELETE',
-        });
-        getRestrictions();
+    const deleteIR = async () => {
+        await fetch(
+            api.recipeIngredients +
+                `?recipe_id=${selectedRI.recipe_id}&ingredient_id=${selectedRI.ingredient_id}`,
+            {
+                method: 'DELETE',
+            }
+        );
+        getRI();
         setIsDeleteConfirmationOpen(false);
     };
-    // ----------------------------
 
-    const openEditForm = (data) => {
-        setSelectedRestriction(data);
+    const getIngredients = async () => {
+        await fetch(api.ingredients)
+            .then((res) => res.json())
+            .then((data) => {
+                setIngredients(data);
+            });
+    };
+
+    const getRecipes = async () => {
+        await fetch(api.recipes)
+            .then((res) => res.json())
+            .then((data) => {
+                setRecipes(data);
+            });
+    };
+    // ----------------------------
+    const openCreateForm = async () => {
+        await getIngredients();
+        await getRecipes();
+        setIsCreateFormOpen(true);
+    };
+
+    const openEditForm = async (data) => {
+        await getIngredients();
+        await getRecipes();
+        setSelectedRI(data);
         setIsEditFormOpen(true);
     };
 
     const openDeleteConfirmation = (data) => {
-        setSelectedRestriction(data);
+        setSelectedRI(data);
         setIsDeleteConfirmationOpen(true);
     };
 
     useEffect(() => {
-        getRestrictions();
+        getRI();
     }, []);
 
     return (
         <main className="p-8 flex flex-col gap-y-4">
-            <h1>Restrictions</h1>
+            <h1>Recipe Ingredients</h1>
             <div className="flex justify-end">
                 <button
                     className="cta-button"
-                    onClick={() => setIsCreateFormOpen(true)}
+                    onClick={async () => {
+                        openCreateForm();
+                    }}
                 >
-                    Add New Restriction
+                    Associate Recipe to Ingredient
                 </button>
             </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Restriction ID</th>
-                        <th>Name</th>
+                        <th>Recipe ID</th>
+                        <th>Recipe Name</th>
+                        <th>Ingredient ID</th>
+                        <th>Ingredient Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {restrictions.map((data, index) => (
+                    {RI.map((data, index) => (
                         <tr key={index}>
-                            <td>{data.restr_id}</td>
-                            <td>{data.name}</td>
+                            <td>{data.recipe_id}</td>
+                            <td>{data.recipe_name}</td>
+                            <td>{data.ingredient_id}</td>
+                            <td>{data.ingredient_name}</td>
+                            <td>{data.unit_name}</td>
+                            <td>{data.quantity}</td>
                             <td>
                                 <button onClick={() => openEditForm(data)}>
                                     Edit
@@ -136,15 +181,39 @@ const RestrictionsPage = () => {
                 show={isCreateFormOpen}
                 onClose={() => setIsCreateFormOpen(false)}
             >
-                <form
-                    onSubmit={createRestriction}
-                    className="flex flex-col gap-y-4"
-                >
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" name="name" required />
+                <form onSubmit={createRI} className="flex flex-col gap-y-4">
+                    <h1>Associate Ingredient to Restriction</h1>
+                    <label htmlFor="recipe_id">Recipe</label>
+                    <select name="recipe_id" id="recipe_id">
+                        {recipes &&
+                            recipes.map((data, index) => (
+                                <option key={index} value={data.recipe_id}>
+                                    {data.name}
+                                </option>
+                            ))}
+                    </select>
+                    <label htmlFor="ingredient_id">Ingredient</label>
+                    <select name="ingredient_id" id="ingredient_id">
+                        {ingredients &&
+                            ingredients.map((data, index) => (
+                                <option key={index} value={data.ingredient_id}>
+                                    {data.name}
+                                </option>
+                            ))}
+                    </select>
+                    <label htmlFor="quantity">Quantity</label>
+                    <input
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        placeholder="Quantity"
+                        min="0"
+                        required
+                    />
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
+                            type="button"
                             onClick={() => setIsCreateFormOpen(false)}
                         >
                             Cancel
@@ -159,15 +228,49 @@ const RestrictionsPage = () => {
                 show={isEditFormOpen}
                 onClose={() => setIsEditFormOpen(false)}
             >
-                <form
-                    onSubmit={editRestriction}
-                    className="flex flex-col gap-y-4"
-                >
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" name="name" required />
+                <form onSubmit={editRI} className="flex flex-col gap-y-4">
+                    <h1>Edit Ingredient Restriction</h1>
+                    <label htmlFor="recipe_id">Recipe</label>
+                    <select
+                        name="recipe_id"
+                        id="recipe_id"
+                        value={selectedRI.recipe_id}
+                        disabled
+                    >
+                        {recipes &&
+                            recipes.map((data, index) => (
+                                <option key={index} value={data.recipe_id}>
+                                    {data.name}
+                                </option>
+                            ))}
+                    </select>
+                    <label htmlFor="ingredient_id">Ingredient</label>
+                    <select
+                        name="ingredient_id"
+                        id="ingredient_id"
+                        value={selectedRI.ingredient_id}
+                        disabled
+                    >
+                        {ingredients &&
+                            ingredients.map((data, index) => (
+                                <option key={index} value={data.ingredient_id}>
+                                    {data.name}
+                                </option>
+                            ))}
+                    </select>
+                    <label htmlFor="quantity">Quantity</label>
+                    <input
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        placeholder="Quantity"
+                        min="0"
+                        required
+                    />
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
+                            type="button"
                             onClick={() => setIsEditFormOpen(false)}
                         >
                             Cancel
@@ -183,18 +286,19 @@ const RestrictionsPage = () => {
                 onClose={() => setIsDeleteConfirmationOpen(false)}
             >
                 <div className="flex flex-col w-full">
-                    <p>Are you sure you want to delete this restriction?</p>
+                    <p>
+                        Are you sure you want to delete this
+                        ingredient-restriction?
+                    </p>
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
+                            type="button"
                             onClick={() => setIsDeleteConfirmationOpen(false)}
                         >
                             Cancel
                         </button>
-                        <button
-                            className="delete-button"
-                            onClick={deleteRestriction}
-                        >
+                        <button className="delete-button" onClick={deleteIR}>
                             Delete
                         </button>
                     </div>
@@ -204,4 +308,4 @@ const RestrictionsPage = () => {
     );
 };
 
-export default RestrictionsPage;
+export default RecipeIngredientsPage;
