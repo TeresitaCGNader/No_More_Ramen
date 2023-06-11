@@ -28,6 +28,11 @@ router.get('/', async (req, res) => {
 
 // Create ingredient
 router.post('/', async (req, res) => {
+    // Body validation
+    if (!req.body.name || !req.body.unit || !req.body.price_per_unit) {
+        res.status(400).json({ message: 'Invalid request' });
+    }
+
     const { name, unit, price_per_unit } = req.body;
 
     const sql =
@@ -36,9 +41,10 @@ router.post('/', async (req, res) => {
 
     connection.query(sql, data, async (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to create ingredient' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to create ingredient' });
         }
-        console.log(results);
 
         if (req.body.restrictions && req.body.restrictions.length > 0) {
             let createIRSql =
@@ -52,25 +58,28 @@ router.post('/', async (req, res) => {
             // Remove last comma and space
             createIRSql = createIRSql.slice(0, -2);
 
-            console.log(createIRSql);
-            console.log(createIRData);
             connection.execute(createIRSql, createIRData, (err, IRresults) => {
                 if (err) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         message: 'Failed to create ingredient restriction',
                     });
                 }
 
-                res.status(201).json({ results, IRresults });
+                return res.status(201).json({ results, IRresults });
             });
         } else {
-            res.status(201).json(results);
+            return res.status(201).json(results);
         }
     });
 });
 
 // Edit ingredient
 router.put('/:ingredientId', async (req, res) => {
+    // Body validation
+    if (!req.body.name || !req.body.unit || !req.body.price_per_unit) {
+        return res.status(400).json({ message: 'Invalid request' });
+    }
+
     const { name, unit, price_per_unit } = req.body;
     const ingredientId = req.params.ingredientId;
 
@@ -80,10 +89,12 @@ router.put('/:ingredientId', async (req, res) => {
 
     connection.query(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to update ingredient' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to update ingredient' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -96,10 +107,12 @@ router.delete('/:ingredientId', async (req, res) => {
 
     connection.query(sql, data, (err) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to delete ingredient' });
+            return res
+                .status(500)
+                .json({ message: 'Failed to delete ingredient' });
         }
 
-        res.status(204).send();
+        return res.status(204).send();
     });
 });
 

@@ -10,17 +10,17 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to get units' });
+            return res.status(500).json({ message: 'Failed to get units' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
 // Create unit
 router.post('/', async (req, res) => {
     if (!req.body.name || !req.body.measurementType) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql = 'INSERT INTO Units (name, measurement_type) VALUES (?, ?)';
@@ -28,18 +28,17 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to create unit' });
+            return res.status(500).json({ message: 'Failed to create unit' });
         }
 
-        res.status(201).json(results);
+        return res.status(201).json(results);
     });
 });
 
 // Edit unit
 router.put('/:id', async (req, res) => {
     if (!req.body.name) {
-        res.status(400).json({ message: 'Invalid request' });
-        return;
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
@@ -48,11 +47,10 @@ router.put('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to update unit' });
-            return;
+            return res.status(500).json({ message: 'Failed to update unit' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -63,10 +61,10 @@ router.delete('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            throw err;
+            return res.status(500).json({ message: 'Failed to delete unit' });
         }
 
-        res.status(204).send();
+        return res.status(204).send();
     });
 });
 

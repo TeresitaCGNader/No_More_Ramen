@@ -10,10 +10,10 @@ router.get('/', async (req, res) => {
 
     connection.query(sql, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to get users' });
+            return res.status(500).json({ message: 'Failed to get users' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     // Body validation
     if (!req.body.first_name || !req.body.last_name || !req.body.email) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
@@ -30,10 +30,10 @@ router.post('/', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to create user' });
+            return res.status(500).json({ message: 'Failed to create user' });
         }
 
-        res.status(201).json(results);
+        return res.status(201).json(results);
     });
 });
 
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     // Body validation
     if (!req.body.first_name || !req.body.last_name || !req.body.email) {
-        res.status(400).json({ message: 'Invalid request' });
+        return res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
@@ -55,10 +55,10 @@ router.put('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to update user' });
+            return res.status(500).json({ message: 'Failed to update user' });
         }
 
-        res.json(results);
+        return res.json(results);
     });
 });
 
@@ -69,10 +69,10 @@ router.delete('/:id', async (req, res) => {
 
     connection.execute(sql, data, (err) => {
         if (err) {
-            res.status(500).json({ message: 'Failed to delete user' });
+            return res.status(500).json({ message: 'Failed to delete user' });
         }
 
-        res.status(204).send();
+        return res.status(204).send();
     });
 });
 
