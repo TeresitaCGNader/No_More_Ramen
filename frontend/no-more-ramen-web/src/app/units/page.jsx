@@ -7,10 +7,10 @@ import Dialog from '@/components/modal/Dialog';
 /**
  * Status:
  *
- * GET: Working
- * POST: Working
- * PUT: Working
- * DELETE: Working
+ * GET: DONE
+ * POST: DONE
+ * PUT: DONE
+ * DELETE: DONE
  */
 
 const UnitsPage = () => {
@@ -153,6 +153,7 @@ const UnitsPage = () => {
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
+                            type="button"
                             onClick={() => setIsCreateFormOpen(false)}
                         >
                             Cancel
@@ -180,6 +181,7 @@ const UnitsPage = () => {
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
+                            type="button"
                             onClick={() => setIsEditFormOpen(false)}
                         >
                             Cancel

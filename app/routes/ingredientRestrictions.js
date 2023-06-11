@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
 
     let sql =
         'INSERT INTO IngredientRestrictions (ingredient_id, restr_id) VALUES (?, ?)';
-    let data = [req.query.recipe_id, req.query.ingredient_id];
+    let data = [req.body.ingredient_id, req.body.restr_id];
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
@@ -56,6 +56,7 @@ router.delete('/', async (req, res) => {
     if (!req.query.restr_id || !req.query.ingredient_id) {
         res.status(400).json({ message: 'Invalid request' });
     }
+    console.log(req.query);
 
     let sql =
         'DELETE FROM IngredientRestrictions WHERE restr_id = ? AND ingredient_id = ?';

@@ -31,21 +31,13 @@ router.get('/', async (req, res) => {
 // It should be used in the recipe page during the recipe creation process.
 router.post('/', async (req, res) => {
     // Body validation
-    if (
-        !req.body.quantity ||
-        !req.query.recipe_id ||
-        !req.query.ingredient_id
-    ) {
+    if (!req.body.quantity || !req.body.recipe_id || !req.body.ingredient_id) {
         res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
         'INSERT INTO RecipeIngredients (quantity, recipe_id, ingredient_id) VALUES (?, ?, ?)';
-    let data = [
-        req.body.quantity,
-        req.query.recipe_id,
-        req.query.ingredient_id,
-    ];
+    let data = [req.body.quantity, req.body.recipe_id, req.body.ingredient_id];
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
@@ -61,21 +53,13 @@ router.post('/', async (req, res) => {
 // Edit recipe ingredient
 router.put('/', async (req, res) => {
     // Body validation
-    if (
-        !req.body.quantity ||
-        !req.query.recipe_id ||
-        !req.query.ingredient_id
-    ) {
+    if (!req.body.quantity || !req.body.recipe_id || !req.body.ingredient_id) {
         res.status(400).json({ message: 'Invalid request' });
     }
 
     let sql =
         'UPDATE RecipeIngredients SET quantity = ? WHERE recipe_id = ? AND ingredient_id = ?';
-    let data = [
-        req.body.quantity,
-        req.query.recipe_id,
-        req.query.ingredient_id,
-    ];
+    let data = [req.body.quantity, req.body.recipe_id, req.body.ingredient_id];
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
