@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start -p 5550",
+        "start": "npx forever start ./node_modules/.bin/next start -p 5550",
+        "stop": "npx forever stopall",
         "lint": "next lint"
     },
     "dependencies": {
