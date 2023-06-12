@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon index.js",
-        "start": "npx pm2 start index.js",
-        "stop": "npx pm2 stop index.js"
+        "start": "npx forever start index.js",
+        "stop": "npx forever stop index.js"
     },
     "keywords": [],
     "author": "",
