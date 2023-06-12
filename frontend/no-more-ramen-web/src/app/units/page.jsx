@@ -39,7 +39,6 @@ const UnitsPage = () => {
 
         const data = {
             name: event.target.name.value,
-            measurementType: event.target.measurementType.value,
         };
 
         await fetch(api.units, {
@@ -58,7 +57,6 @@ const UnitsPage = () => {
 
         const data = {
             name: event.target.name.value,
-            measurement_type: event.target.measurement_type.value,
         };
 
         await fetch(api.units + `/${selectedUnit.unit_id}`, {
@@ -111,7 +109,6 @@ const UnitsPage = () => {
                     <tr>
                         <th>Unit ID</th>
                         <th>Name</th>
-                        <th>Measurement Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +116,6 @@ const UnitsPage = () => {
                         <tr key={index}>
                             <td>{data.unit_id}</td>
                             <td>{data.name}</td>
-                            <td>{data.measurement_type}</td>
                             <td>
                                 <button onClick={() => openEditForm(data)}>
                                     Edit
@@ -143,13 +139,6 @@ const UnitsPage = () => {
                 <form onSubmit={createUnits} className="flex flex-col gap-y-4">
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" name="name" required />
-                    <label htmlFor="measurementType">Measurement Type</label>
-                    <input
-                        type="text"
-                        id="measurementType"
-                        name="measurementType"
-                        required
-                    />
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"
@@ -171,13 +160,6 @@ const UnitsPage = () => {
                 <form onSubmit={editUnits} className="flex flex-col gap-y-4">
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" name="name" required />
-                    <label htmlFor="measurement_type">Measurement Type</label>
-                    <input
-                        type="text"
-                        id="measurement_type"
-                        name="measurement_type"
-                        required
-                    />
                     <div className="flex gap-x-4 justify-center">
                         <button
                             className="cancel-button"

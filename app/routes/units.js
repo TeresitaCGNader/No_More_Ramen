@@ -19,12 +19,12 @@ router.get('/', async (req, res) => {
 
 // Create unit
 router.post('/', async (req, res) => {
-    if (!req.body.name || !req.body.measurementType) {
+    if (!req.body.name) {
         return res.status(400).json({ message: 'Invalid request' });
     }
 
-    let sql = 'INSERT INTO Units (name, measurement_type) VALUES (?, ?)';
-    let data = [req.body.name, req.body.measurementType];
+    let sql = 'INSERT INTO Units (name) VALUES (?)';
+    let data = [req.body.name];
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
@@ -41,9 +41,8 @@ router.put('/:id', async (req, res) => {
         return res.status(400).json({ message: 'Invalid request' });
     }
 
-    let sql =
-        'UPDATE Units SET name = ?, measurement_type = ? WHERE unit_id = ?';
-    let data = [req.body.name, req.body.measurement_type, req.params.id];
+    let sql = 'UPDATE Units SET name = ? WHERE unit_id = ?';
+    let data = [req.body.name, req.params.id];
 
     connection.execute(sql, data, (err, results) => {
         if (err) {
