@@ -3,8 +3,8 @@
  * ------
  * Change this to the server URL if it changes.
  */
-// const baseUrl = 'http://flip1.engr.oregonstate.edu:5550/';
-const baseUrl = 'http://localhost:5550/';
+const baseUrl = 'http://flip1.engr.oregonstate.edu:5550/';
+// const baseUrl = 'http://localhost:5550/';
 
 /**
  * This interface makes it easier to access and change API endpoints.
