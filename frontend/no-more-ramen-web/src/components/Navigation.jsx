@@ -8,30 +8,38 @@ const Navbar = () => (
             </span>
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div className="text-sm flex flex-grow gap-x-2 text-center items-center">
+            <div className="text-sm flex flex-grow gap-x-2 text-center items-center text-white">
                 <Link href="/">
-                    <span>Home</span>
+                    <span className="hover:border rounded-md p-2">Home</span>
                 </Link>
                 <Link href="/ingredients">
-                    <span>Ingredients</span>
+                    <span className="hover:border rounded-md p-2">
+                        Ingredients
+                    </span>
                 </Link>
                 <Link href="/recipes">
-                    <span>Recipes</span>
+                    <span className="hover:border rounded-md p-2">Recipes</span>
                 </Link>
                 <Link href="/units">
-                    <span>Units</span>
+                    <span className="hover:border rounded-md p-2">Units</span>
                 </Link>
                 <Link href="/users">
-                    <span>Users</span>
+                    <span className="hover:border rounded-md p-2">Users</span>
                 </Link>
                 <Link href="/recipe-ingredients">
-                    <span>Recipe Ingredients</span>
+                    <span className="hover:border rounded-md p-2">
+                        Recipe Ingredients
+                    </span>
                 </Link>
                 <Link href="/ingredient-restrictions">
-                    <span>Ingredient Restrictions</span>
+                    <span className="hover:border rounded-md p-2">
+                        Ingredient Restrictions
+                    </span>
                 </Link>
                 <Link href="/restrictions">
-                    <span>Restrictions</span>
+                    <span className="hover:border rounded-md p-2">
+                        Restrictions
+                    </span>
                 </Link>
             </div>
         </div>

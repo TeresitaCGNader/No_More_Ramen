@@ -1,5 +1,14 @@
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
-  );
+    return (
+        <main className="">
+            <h1 className="text-xl font-bold text-center p-10">
+                Welcome to No More Ramen!
+            </h1>
+
+            <p className="text-2xl text-center p-10">
+                To get started, click on any of the pages in the navigation bar
+                above.
+            </p>
+        </main>
+    );
 }

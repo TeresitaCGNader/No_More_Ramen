@@ -113,12 +113,14 @@ const IngredientsPage = () => {
 
     const openCreateForm = () => {
         populateFormChoices();
+        setSelectedRestrictions([]);
         setIsCreateFormOpen(true);
     };
 
     const openEditForm = (data) => {
         populateFormChoices();
         setSelectedIngredient(data);
+        setSelectedRestrictions([]);
         setIsEditFormOpen(true);
     };
 
